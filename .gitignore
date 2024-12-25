@@ -1,0 +1,20 @@
+# Ignore everything
+*
+
+# Except for README.md and .gitignore
+!README.md
+!.gitignore
+
+# Except for these files and directories
+# Main file
+!*.tex       
+
+# Bibliography
+!*.bib
+
+# Output file
+!*.pdf
+
+# Figure directory
+!Figure/
+!Figure/*

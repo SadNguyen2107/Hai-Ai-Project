@@ -1,0 +1,324 @@
+\documentclass[twocolumn]{article}
+
+% -----------------------------------------------------------------------------------
+
+% choose options for [] as required from the list % in the
+% Reference Guide
+\usepackage[a4paper, left=1cm, right=1cm, top=1in, bottom=1in]{geometry}
+
+\usepackage{mathptmx}       % selects Times Roman as basic font
+\usepackage{helvet}         % selects Helvetica as sans-serif font
+\usepackage{courier}        % selects Courier as typewriter font
+\usepackage{type1cm}        % activate if the above 3 fonts are
+                            % not available on your system
+%
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index
+\usepackage{seqsplit}
+\graphicspath{{Figure/}}
+
+% -----------------------------------------------------------------------------------
+\usepackage{amsfonts}        % for sets like \mathbb{N}, \mathbb{Z}, etc.
+
+\usepackage{bm}              % for bold symbols
+\usepackage{caption}         % for controlling figure/table captions
+\usepackage{float}           % to improve figure positioning
+
+\usepackage{microtype}
+\usepackage[none]{hyphenat} % Prevents hyphenation
+\sloppy % Allows LaTeX to be less strict about line breaking
+
+
+\usepackage{hyperref}
+% \usepackage{apacite}
+\usepackage[style=numeric, backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+
+\usepackage{enumitem} 
+\usepackage[small,compact]{titlesec} 
+\titlespacing{\section}{0pt}{*4}{*1.5}
+
+\usepackage{setspace}
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+
+% -----------------------------------------------------------------------------------
+
+% \DefineBibliographyStrings{english}{
+%   andothers = {et al} % Removes the period after "et al"
+% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setlength{\columnsep}{1cm} % Adjust column separation
+\title{STUDY ON WARNING OF QUEENLESS \break BEE HIVE BASED ON SOUND CLASSIFICATION}
+\author{\normalsize Khoi Nguyen Dao, Hoang Le Nguyen, Anh Tuan Hoang Nguyen, Son Trung Nguyen}
+\date{\normalsize Hanoi University of Science and Technology, Vietnam}
+
+\begin{document}
+\maketitle
+
+\abstract{
+  The beekeeping industry in Vietnam is thriving, contributing significantly to the
+  agricultural economy through products like honey, pollen, and beeswax. However,
+  the current manual management methods face many challenges in timely detecting
+  abnormalities, especially the loss of the queen bee - an event that can cause
+  significant disruption to the colony, reducing productivity and increasing the
+  risk of colony collapse. Applying modern technologies such as Artificial Intelligence
+  (AI) is crucial for automating data collection and analysis on the bee colony's
+  environment and health. Our research team has applied an AI model capable of using the
+  results of sound feature extraction from bee colonies using MFCCs and making anomaly
+  predictions using machine learning models such as CNN, LSTM+CNN. This technological
+  solution not only helps reduce risks but also improves productivity and product quality,
+  while reducing the manual inspection burden for beekeepers. The application of AI in
+  beekeeping will bring greater accuracy, efficiency, and better management capabilities
+  to the entire industry.
+}
+
+\vspace{1em}
+\noindent\textbf{Keywords:} sound classification, MFCCs, CNN, LSTM+CNN, AI in Agriculture.
+
+\section{Introduction}
+In beekeeping, the queen bee plays a vital role in maintaining the stability and development
+of the bee colony. The queen is the reproductive center of the colony, and she also regulates
+the activities and social structure within the hive \cite{anton2022introduction}. The loss of the queen bee
+often leads to serious consequences such as reduced reproductive capacity, an imbalance in
+colony activities, and can even lead to the complete collapse of the bee colony. Therefore,
+early detection and warning of abnormal queen bee loss in beehives is crucial to ensure
+production efficiency and maintain the health of the bee colony.
+
+If the loss of the queen bee in the colony is not detected promptly, it can cause serious
+problems such as an imbalance in the activities of the hive, leading to disorientation and
+chaos, resulting in a decline in the bee population, leading to the weakening and eventual
+death of the entire bee colony \cite{honey_bee_colony_2021}. Therefore, the need for a device to provide early
+warning of queen loss is very important to help beekeepers intervene promptly. A warning
+system can quickly detect the loss of the queen, allowing beekeepers to intervene by
+replacing the queen with a new one or stimulating the colony to create a new queen before
+the colony weakens, thus reducing the damage caused by the loss of the queen.
+
+\section{Related Work}
+The development of Artificial Intelligence (AI) is opening up new opportunities for the
+beekeeping industry. AI technology allows for efficient remote monitoring, collecting
+continuous data on various aspects of bee colony life. AI algorithms are applied to analyze
+and process data, providing accurate information about the health and activity of bee
+colonies. This enables beekeepers to monitor their colonies 24/7 without direct
+intervention, detecting and addressing problems such as diseases or other harmful
+factors in a timely manner. Consequently, they can optimize beekeeping, improve product
+yield and quality, and save time and costs in colony management. Although this technology
+has been widely researched and applied in many countries worldwide, the application of AI
+in beekeeping in Vietnam is still limited. Research related to the detection of anomalies
+in beekeeping can be mentioned as follows:
+
+Several systems introduced by
+\citeauthor{schurischuster2016sensor} (\citeyear{schurischuster2016sensor}) \cite{schurischuster2016sensor},
+\citeauthor{zacepins2016remote} (\citeyear{zacepins2016remote}) \cite{zacepins2016remote},
+\citeauthor{antonio2017frequency} (\citeyear{antonio2017frequency}) \cite{antonio2017frequency},
+\citeauthor{crawford2017automated} (\citeyear{crawford2017automated}) \cite{crawford2017automated}
+have used a multi-sensor beehive monitoring system
+called BeePi, including a Raspberry Pi computer, a miniature camera, 4 microphones connected
+to a splitter, a solar panel, a temperature sensor, a battery, and a clock. In the research
+of \citeauthor{kulyukin2018toward} \cite{kulyukin2018toward}, microphones were placed to collect sound samples of bees,
+crickets, and ambient noise. The authors then used machine learning models on bee sound
+datasets collected from different locations to train and classify the collected sounds.
+The experimental results achieved high accuracy, so it is entirely possible to use sound
+to monitor the hive status.
+
+Besides the above research on bee monitoring, in 2019, research by Ruvinga and colleagues
+used the MFCC feature extraction method along with a CNN network to predict queen bee loss
+sounds with an accuracy rate of up to 99\% on the Arnia Ltd. dataset
+(\citeurl{ruvinga2023identifying}) \cite{ruvinga2023identifying},
+which shows that beehive sound analysis technology has been used as an effective tool for
+early detection of problems related to the queen bee, especially the loss of the queen. One
+of the reasons why sound analysis is an effective tool for early detection of problems
+related to the queen bee is that the transformation and change of sound are obvious when
+the queen bee of the bee colony has a problem, for example: When the queen bee dies or
+leaves, the hive sound can change from a quiet and rhythmic state to abnormal sounds such
+as long and repetitive buzzing of worker bees. This characteristic sound is a clear sign of
+instability in the hive. Compared to other inspection methods such as temperature or
+humidity sensors, although temperature or humidity sensors can detect changes in the bee
+colony environment, they cannot provide specific information about the status of the queen
+bee or the bee colony. Sound analysis will have clearer data on queen loss based on the
+activity and behavior of worker bees.
+
+Based on the analysis of research on detection monitoring in the beekeeping process,
+and then providing analysis to warn of queen loss, the research team chooses to
+analyze the sound collected from the beehive to issue an early warning of queen loss for
+deployment. This method provides high accuracy and is easy to automate, helping beekeepers
+monitor their bee colonies continuously and reduce risks. Compared to other monitoring
+methods, sound analysis not only detects early queen loss but also helps protect the health
+of the bee colony without direct intervention in the hive.
+
+In essence, this text discusses the application of AI, particularly sound analysis, in
+beekeeping to detect problems like queen bee loss. It highlights the advantages of using
+AI, such as remote monitoring, early detection, and improved efficiency. The text also
+provides examples of existing research and the benefits of using sound analysis over other
+methods.
+
+\section{Theoretical Foundation for Anomaly Detection in Sound Classification}
+According to the chosen problem-solving approach, our research team will extract sound
+features and make predictions following the process shown in the image:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.47\textwidth]{Audio-Classification-Process.png}
+  \caption{Audio Classification Process}
+  \label{fig:audio-classification-process}
+\end{figure}
+
+In this process, the audio file will go through the MFCC feature extraction step to
+transform from the time domain to the frequency domain. Afterward, the classification
+model will output the result indicating whether the audio file contains a queen bee or not.
+The two classification models we used are the Convolutional Neural Network (CNN) and the
+Long Short-Term Memory (LSTM) combined with CNN (LSTM+CNN).
+
+\section{Feature Extraction in Audio}
+To extract audio features, we'll employ the MFCC (Mel-Frequency Cepstral Coefficients)
+technique and spectrogram for audio visualization. The feature extraction process comprises
+steps such as pre-emphasis, windowing, DFT (Discrete Fourier Transform), and more
+\cite{hossan2011novel} as illustrated below:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.47\textwidth]{Steps-to-extract-audio-features.png}
+  \caption{Steps to extract audio features}
+  \label{fig:steps-to-extract-audio-features}
+\end{figure}
+
+Among the steps outlined in \autoref{fig:steps-to-extract-audio-features}, the Discrete Fourier Transform (DFT) is a crucial
+step in MFCC. It facilitates the transformation of the input signal from the time domain to
+independent frequencies in the frequency domain, enabling visualization through a
+spectrogram. This makes subsequent machine learning steps much easier.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.47\textwidth]{Audio-is-converted-from-the-time-domain-to-the-frequency-domain-using-the-Fourier-transform.png}
+  \caption{Audio is converted from the time domain to the frequency domain using the Fourier transform. \cite{biswas2021fourier}}
+  \label{fig:audio-is-converted-from-the-time-domain-to-the-frequency-domain-using-the-Fourier-transform}
+\end{figure}
+
+Following the Fourier transform, we obtain an amplitude-frequency plot. However, we lose
+temporal information, meaning the system doesn't know the sequence in which the sounds
+occurred. Here, we need a plot that displays both frequency and amplitude over time.
+A spectrogram, as shown in \autoref{fig:spectrogram-after-applying-Fourier-transform}, can achieve this. The spectrogram's x-axis represents
+time, the y-axis represents frequency, and the color intensity represents the amplitude
+of the sound. Brighter colors indicate stronger frequencies.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.47\textwidth]{Spectrogram-after-applying-Fourier-transform.png}
+  \caption{Spectrogram after applying Fourier transform}
+  \label{fig:spectrogram-after-applying-Fourier-transform}
+\end{figure}
+
+\section{Proposed Machine Learning Models}
+Our research team proposes using two popular models: Convolutional Neural Networks
+(CNNs) and a combination of Long Short-Term Memory networks with CNNs. Each model has its
+own advantages and disadvantages that need to be considered.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.47\textwidth]{CNN-model.jpg}
+  \caption{CNN Model}
+  \label{fig:cnn-model}
+\end{figure}
+
+Convolutional Neural Networks (CNNs) (\autoref{fig:cnn-model}) are a powerful tool for extracting spatial
+features from audio data. When audio is converted into spectrograms, which visually
+represent sound, CNNs can identify local patterns like edges and textures in the data \cite{oshea2015introduction}.
+One of the biggest advantages of CNNs is their translational invariance, which makes the
+model resistant to shifts and distortions in the input data. Moreover, CNNs significantly
+reduce the number of parameters by sharing weights, making the training process more
+efficient. This model is also easily scalable by adding more layers and filters, allowing
+for the extraction of increasingly complex features.
+
+However, CNNs have some limitations. The model primarily captures spatial features and may
+not be effective in capturing the temporal dependencies inherent in sequential
+audio data \cite{lim2020time}. CNNs also require a fixed input size, which can be a limitation when
+processing audio segments of varying lengths. Additionally, audio data needs to be
+converted into spectrograms or other image-like representations before being fed into a CNN,
+requiring an additional preprocessing step.
+
+Combining CNNs and LSTMs (\autoref{fig:lstm-cnn-model}) offers several benefits. The LSTM+CNN model leverages
+the strengths of both models, capturing both spatial features (through CNN) and
+temporal dependencies (through LSTM) \cite{sainath2015convolutional}.
+This makes them suitable for audio classification where temporal patterns are crucial.
+This combination often leads to better performance in tasks that require understanding both
+local features and global sequence patterns, such as speech recognition and music genre
+classification. Moreover, LSTMs can handle variable-length sequences \cite{lim2020time},
+making the combined model more flexible in processing audio segments of different lengths.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.47\textwidth]{LSTM-CNN-model.png}
+  \caption{LSTM+CNN Model}
+  \label{fig:lstm-cnn-model}
+\end{figure}
+
+However, combining CNNs and LSTMs results in more complex models with more parameters,
+requiring more computational resources, and training LSTM+CNN models takes longer than
+training a standalone CNN.
+
+In summary, we have outlined the advantages and disadvantages of the two models, CNN and
+LSTM+CNN, based on the theoretical foundation. The evaluation of the performance of the
+two models, based on accuracy and computational speed, will be conducted through practical
+experiments on the bee audio dataset collected through IoT devices installed by the group
+at the bee farm.
+
+\section{Experimental Results}
+In this experiment, we conducted tests using the MFCC (Mel-frequency cepstral coefficients)
+feature extraction method combined with two neural network models: CNN (Convolutional Neural
+Network) and LSTM+CNN (Long Short-Term Memory + Convolutional Neural Network) to identify
+bee sounds. The test dataset consisted of 500 untrained audio files collected using IoT
+devices installed on Apis mellifera beehives at the Bee Center of the Vietnam Academy of
+Agriculture, including 405 audio files of bee colonies with queens and 110 files without
+queen bees. The experimental results showed that the CNN model achieved an accuracy of
+96.29\% (390/405) with a prediction time of 50.97 seconds, while the LSTM+CNN model only
+achieved 80.24\% (325/405) accuracy and took 123.78 seconds to process. The results of the
+two models are presented in detail in \autoref{tab:model_comparison}:
+
+\begin{table}[H]
+  \centering
+  \resizebox{0.47\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Model} & \textbf{Accuracy} & \textbf{Processing time} \\ \hline
+      CNN            & 96.29\%           & 50.97 seconds            \\ \hline
+      LSTM+CNN       & 80.24\%           & 123.78 seconds           \\ \hline
+    \end{tabular}%
+  }
+  \caption{Comparison of accuracy and processing time between models}
+  \label{tab:model_comparison}
+\end{table}
+
+Analysis of the results shows that the CNN model not only outperforms in terms of accuracy
+but also in processing speed, which is nearly 2.5 times faster than LSTM+CNN. The research
+results also confirm the effectiveness of combining the MFCC feature extraction method with
+the CNN model in the problem of anomaly detection through bee sound classification.
+Although the LSTM+CNN model has a more complex structure, in this particular case, the
+model does not yield higher performance compared to CNN.
+
+From the experimental results, we can conclude that the combination of the MFCC feature
+extraction method and the CNN network is an effective method for identifying bee sounds,
+ensuring not only high accuracy but also fast processing speed, making it a good choice
+for practical applications in this field.
+
+\section{Conclusion and Recommendations}
+In this paper, we concluded that the AI sound classification system to support early 
+warning of queen loss will achieve an accuracy of more than 16\% higher and a speed 
+2.5 times faster when using the MFCC feature extraction technique with the CNN machine 
+learning model compared to LSTM+CNN. The system uses  sound from beehives, trainning AI 
+to predict anomalies with MFCCs (to represent sound as images) and CNN 
+(to extract important features from MFCCs), thereby optimizing bee care, improving 
+productivity and product quality, and saving time and costs in bee management. The 
+research group aims to continue researching, designing devices and developing equipment 
+to analyze and evaluate more abnormal cases in beehives to warn beekeepers such as: 
+warning of swarm division, insect attacks, diseases, etc.
+
+
+\printbibliography
+\end{document}
