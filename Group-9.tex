@@ -46,6 +46,15 @@
 \usepackage{parskip}
 \restoreparindent
 
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{20pt}{5pt} % No space above or below \section
+
+\usepackage[skip=0pt]{caption} % Remove space around captions
+
+% % Adjust global float spacing
+% \setlength{\textfloatsep}{0pt}
+% \setlength{\abovecaptionskip}{0pt}
+% \setlength{\belowcaptionskip}{0pt}
 % -----------------------------------------------------------------------------------
 
 % \DefineBibliographyStrings{english}{
@@ -80,9 +89,10 @@
   to the entire industry.
 }
 
-\vspace{1em}
 \noindent\textbf{Keywords:} sound classification, MFCCs, CNN, LSTM+CNN, AI in Agriculture.
 
+
+\vspace{-1em}
 \section{Introduction}
 In beekeeping, the queen bee plays a vital role in maintaining the stability and development
 of the bee colony. The queen is the reproductive center of the colony, and she also regulates
@@ -163,12 +173,14 @@ methods.
 According to the chosen problem-solving approach, our research team will extract sound
 features and make predictions following the process shown in the image:
 
+\vspace{-1em}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.47\textwidth]{Audio-Classification-Process.png}
   \caption{Audio Classification Process}
   \label{fig:audio-classification-process}
 \end{figure}
+\vspace{-1em}
 
 In this process, the audio file will go through the MFCC feature extraction step to
 transform from the time domain to the frequency domain. Afterward, the classification
@@ -182,24 +194,28 @@ technique and spectrogram for audio visualization. The feature extraction proces
 steps such as pre-emphasis, windowing, DFT (Discrete Fourier Transform), and more
 \cite{hossan2011novel} as illustrated below:
 
+\vspace{-1em}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.47\textwidth]{Steps-to-extract-audio-features.png}
   \caption{Steps to extract audio features}
   \label{fig:steps-to-extract-audio-features}
 \end{figure}
+\vspace{-1em}
 
 Among the steps outlined in \autoref{fig:steps-to-extract-audio-features}, the Discrete Fourier Transform (DFT) is a crucial
 step in MFCC. It facilitates the transformation of the input signal from the time domain to
 independent frequencies in the frequency domain, enabling visualization through a
 spectrogram. This makes subsequent machine learning steps much easier.
 
+\vspace{-1em}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.47\textwidth]{Audio-is-converted-from-the-time-domain-to-the-frequency-domain-using-the-Fourier-transform.png}
   \caption{Audio is converted from the time domain to the frequency domain using the Fourier transform. \cite{biswas2021fourier}}
   \label{fig:audio-is-converted-from-the-time-domain-to-the-frequency-domain-using-the-Fourier-transform}
 \end{figure}
+\vspace{-1em}
 
 Following the Fourier transform, we obtain an amplitude-frequency plot. However, we lose
 temporal information, meaning the system doesn't know the sequence in which the sounds
@@ -208,24 +224,29 @@ A spectrogram, as shown in \autoref{fig:spectrogram-after-applying-Fourier-trans
 time, the y-axis represents frequency, and the color intensity represents the amplitude
 of the sound. Brighter colors indicate stronger frequencies.
 
+\vspace{-1em}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.47\textwidth]{Spectrogram-after-applying-Fourier-transform.png}
   \caption{Spectrogram after applying Fourier transform}
   \label{fig:spectrogram-after-applying-Fourier-transform}
 \end{figure}
+\vspace{-1em}
 
 \section{Proposed Machine Learning Models}
-Our research team proposes using two popular models: Convolutional Neural Networks
-(CNNs) and a combination of Long Short-Term Memory networks with CNNs. Each model has its
-own advantages and disadvantages that need to be considered.
+Our research team proposes using two popular architectures:
+Convolutional Neural Networks (CNNs) and a combination of
+Long Short-Term Memory networks with CNNs. Each model has its own
+advantages and disadvantages that need to be considered.
 
+\vspace{1em}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.47\textwidth]{CNN-model.jpg}
   \caption{CNN Model}
   \label{fig:cnn-model}
 \end{figure}
+\vspace{1em}
 
 Convolutional Neural Networks (CNNs) (\autoref{fig:cnn-model}) are a powerful tool for extracting spatial
 features from audio data. When audio is converted into spectrograms, which visually
@@ -236,6 +257,21 @@ reduce the number of parameters by sharing weights, making the training process 
 efficient. This model is also easily scalable by adding more layers and filters, allowing
 for the extraction of increasingly complex features.
 
+Research group proposed a CNN model begins with an input layer
+designed to accept an input image. It first applies a 2D
+convolutional layer with 32 filters, a 3x3 kernel size, and ReLU
+activation, followed by a max pooling layer with a 2x2 pool size and
+strides of 2x2 to downsample the feature maps. The process is repeated
+with a second convolutional layer, this time with 64 filters and the
+same kernel size and activation, followed by another max pooling layer
+with identical parameters. The feature maps are then flattened into a
+1D vector, which is passed through a series of fully connected (dense)
+layers. The first dense layer has 64 units with ReLU activation,
+followed by a second dense layer with 250 units and ReLU activation,
+and a third dense layer with 100 units and ReLU activation. This model
+concludes with an output dense layer containing a single unit with a
+sigmoid activation function for binary classification tasks.
+
 However, CNNs have some limitations. The model primarily captures spatial features and may
 not be effective in capturing the temporal dependencies inherent in sequential
 audio data \cite{lim2020time}. CNNs also require a fixed input size, which can be a limitation when
@@ -243,31 +279,28 @@ processing audio segments of varying lengths. Additionally, audio data needs to 
 converted into spectrograms or other image-like representations before being fed into a CNN,
 requiring an additional preprocessing step.
 
-Combining CNNs and LSTMs (\autoref{fig:lstm-cnn-model}) offers several benefits. The LSTM+CNN model leverages
-the strengths of both models, capturing both spatial features (through CNN) and
-temporal dependencies (through LSTM) \cite{sainath2015convolutional}.
-This makes them suitable for audio classification where temporal patterns are crucial.
-This combination often leads to better performance in tasks that require understanding both
-local features and global sequence patterns, such as speech recognition and music genre
-classification. Moreover, LSTMs can handle variable-length sequences \cite{lim2020time},
-making the combined model more flexible in processing audio segments of different lengths.
+Research group proposed a CNN model begins with an input layer
+designed to accept an input image. It first applies a 2D convolutional
+layer with 32 filters, a 3x3 kernel size, and ReLU activation,
+followed by a max pooling layer with a 2x2 pool size and strides of
+2x2 to downsample the feature maps. The process is repeated with a
+second convolutional layer, this time with 64 filters and the same
+kernel size and activation, followed by another max pooling layer with
+identical parameters. The feature maps are then flattened into a
+1D vector, which is passed through a series of fully connected
+(dense) layers. The first dense layer has 64 units with ReLU
+activation, followed by a second dense layer with 250 units and
+ReLU activation, and a third dense layer with 100 units and ReLU
+activation. This model concludes with an output dense layer containing
+a single unit with a sigmoid activation function for binary
+classification tasks.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.47\textwidth]{LSTM-CNN-model.png}
-  \caption{LSTM+CNN Model}
-  \label{fig:lstm-cnn-model}
-\end{figure}
-
-However, combining CNNs and LSTMs results in more complex models with more parameters,
-requiring more computational resources, and training LSTM+CNN models takes longer than
-training a standalone CNN.
-
-In summary, we have outlined the advantages and disadvantages of the two models, CNN and
-LSTM+CNN, based on the theoretical foundation. The evaluation of the performance of the
-two models, based on accuracy and computational speed, will be conducted through practical
-experiments on the bee audio dataset collected through IoT devices installed by the group
-at the bee farm.
+In summary, we have outlined the advantages and disadvantages of our
+models, CNN and LSTM+CNN, based on the theoretical foundation. The
+evaluation of the performance of the two models, based on accuracy and
+computational speed, will be conducted through practical experiments
+on the bee audio dataset collected through IoT devices installed by
+the group at the bee farm.
 
 \section{Experimental Results}
 In this experiment, we conducted tests using the MFCC (Mel-frequency cepstral coefficients)
@@ -281,6 +314,7 @@ queen bees. The experimental results showed that the CNN model achieved an accur
 achieved 80.24\% (325/405) accuracy and took 123.78 seconds to process. The results of the
 two models are presented in detail in \autoref{tab:model_comparison}:
 
+\vspace{-1em}
 \begin{table}[H]
   \centering
   \resizebox{0.47\textwidth}{!}{%
@@ -294,6 +328,7 @@ two models are presented in detail in \autoref{tab:model_comparison}:
   \caption{Comparison of accuracy and processing time between models}
   \label{tab:model_comparison}
 \end{table}
+\vspace{-1em}
 
 Analysis of the results shows that the CNN model not only outperforms in terms of accuracy
 but also in processing speed, which is nearly 2.5 times faster than LSTM+CNN. The research
@@ -319,6 +354,28 @@ research group aims to continue researching, designing devices and developing eq
 to analyze and evaluate more abnormal cases in beehives to warn beekeepers such as:
 warning of swarm division, insect attacks, diseases, etc.
 
+\section{Appendix}
+Combining CNNs and LSTMs (\autoref{fig:lstm-cnn-model}) offers several benefits. The LSTM+CNN model leverages
+the strengths of both models, capturing both spatial features (through CNN) and
+temporal dependencies (through LSTM) \cite{sainath2015convolutional}.
+This makes them suitable for audio classification where temporal patterns are crucial.
+This combination often leads to better performance in tasks that require understanding both
+local features and global sequence patterns, such as speech recognition and music genre
+classification. Moreover, LSTMs can handle variable-length sequences \cite{lim2020time},
+making the combined model more flexible in processing audio segments of different lengths.
+
+\vspace{-1em}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.47\textwidth]{LSTM-CNN-model.png}
+  \caption{LSTM+CNN Model}
+  \label{fig:lstm-cnn-model}
+\end{figure}
+\vspace{-1em}
+
+However, combining CNNs and LSTMs results in more complex models with more parameters,
+requiring more computational resources, and training LSTM+CNN models takes longer than
+training a standalone CNN.
 
 \printbibliography
 \end{document}
