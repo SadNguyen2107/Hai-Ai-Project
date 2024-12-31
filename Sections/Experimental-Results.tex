@@ -1,0 +1,55 @@
+\section{Experimental Results}
+In this experiment, we conducted tests using the MFCC (Mel-frequency cepstral coefficients)
+feature extraction method combined with two neural network models: CNN (Convolutional Neural
+Network) and LSTM+CNN (Long Short-Term Memory + Convolutional Neural Network) to identify
+bee sounds. The test dataset consisted of 500 untrained audio files collected using IoT
+devices installed on Apis mellifera beehives at the Bee Center of the Vietnam National University of Agriculture,
+including 405 audio files of bee colonies with queens and 110 files without
+queen bees. The experimental results showed that the CNN model achieved an accuracy of
+96.29\% (390/405) with a prediction time of 50.97 seconds, while the LSTM+CNN model only
+achieved 80.24\% (325/405) accuracy and took 123.78 seconds to process.
+The accuracy and processing time measurement in this research is
+calculated base on this formular:
+
+\vspace{-1em}
+\begin{equation}
+  \footnotesize \text{Accuracy}
+  = \frac{\footnotesize \text{Number of predicted right} + \text{\footnotesize Number of silent file predicted}}{\small \text{Total number of file}}
+\end{equation}
+\vspace{-1em}
+
+\vspace{-1em}
+\begin{equation}
+  \text{Processing time} = \text{\small End process time} - \text{\small Start processing time}
+\end{equation}
+\vspace{-1em}
+
+The results of the two models are presented in detail in \autoref{tab:model_comparison}:
+
+\vspace{-1em}
+\begin{table}[H]
+  \centering
+  \resizebox{0.47\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Model} & \textbf{Accuracy} & \textbf{Processing time} \\ \hline
+      CNN            & 96.29\%           & 50.97 seconds            \\ \hline
+      LSTM+CNN       & 80.24\%           & 123.78 seconds           \\ \hline
+    \end{tabular}%
+  }
+  \caption{Comparison of accuracy and processing time between models}
+  \label{tab:model_comparison}
+\end{table}
+\vspace{-1em}
+
+Analysis of the results shows that the CNN model not only outperforms in terms of accuracy
+but also in processing speed, which is nearly 2.5 times faster than LSTM+CNN. The research
+results also confirm the effectiveness of combining the MFCC feature extraction method with
+the CNN model in the problem of anomaly detection through bee sound classification.
+Although the LSTM+CNN model has a more complex structure, in this particular case, the
+model does not yield higher performance compared to CNN.
+
+From the experimental results, we can conclude that the combination of the MFCC feature
+extraction method and the CNN network is an effective method for identifying bee sounds,
+ensuring not only high accuracy but also fast processing speed, making it a good choice
+for practical applications in this field.

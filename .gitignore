@@ -7,7 +7,11 @@
 
 # Except for these files and directories
 # Main file
-!*.tex       
+!*.tex
+
+# Sections files
+!Sections/
+!Sections/*
 
 # Bibliography
 !*.bib
