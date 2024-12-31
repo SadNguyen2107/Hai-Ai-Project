@@ -30,7 +30,9 @@
 \usepackage{caption}         % for controlling figure/table captions
 \usepackage{float}           % to improve figure positioning
 
-\usepackage{microtype}
+\usepackage[protrusion=true, expansion=true, tracking=true, spacing=true, kerning=true, babel=true, final]{microtype}
+\DisableLigatures{encoding = *, family = * }
+\microtypesetup{disable}
 \usepackage[none]{hyphenat} % Prevents hyphenation
 \sloppy % Allows LaTeX to be less strict about line breaking
 
